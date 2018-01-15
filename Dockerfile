@@ -3,8 +3,10 @@
 FROM php:7.0
 
 RUN apt-get update \
-    && apt-get install -y git zip zlib1g-dev \
+    && apt-get install -y git zip libgd-dev zlib1g-dev \
     && apt-get clean \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ \
+    && docker-php-ext-install gd \
     && docker-php-ext-install opcache \
     && docker-php-ext-install zip
 
